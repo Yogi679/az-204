@@ -1,0 +1,78 @@
+# Build results
+bin/
+obj/
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+[Ww][Ii][Nn]32/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache/options
+.vs/
+.vscode/
+
+# Visual Studio Code
+*.code-workspace
+.vscode/settings.json
+.vscode/launch.json
+.vscode/extensions.json
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Local history
+.history/
+.localhistory/
+
+# NuGet
+*.nupkg
+*.snupkg
+.nuget/
+
+# Local appsettings with sensitive data
+appsettings.Development.json
+appsettings.Local.json
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE specific files
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Publish output
+publish/
+PublishProfiles/
+
+# Runtime configuration files
+*.runtimeconfig.json
+
+# Test Results
+TestResults/
+*.trx
+*.coverage
+
+# Coverage
+OpenCover/
+
+# wwwroot - Source maps and generated files (keep only production files)
+wwwroot/**/*.map
+wwwroot/**/*.br
