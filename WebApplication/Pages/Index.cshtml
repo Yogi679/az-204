@@ -1,10 +1,44 @@
 ﻿@page
 @model IndexModel
-@{
-    ViewData["Title"] = "Home page";
+
+<h2>Course Orders</h2>
+
+@if (Model.Orders.Count == 0)
+{
+    <p>No orders found.</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>OrderId</th>
+                <th>Customer</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Amount</th>
+                <th>Order Date (UTC)</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (CourseOrder o in Model.Orders)
+        {
+            <tr>
+                <td>@o.OrderId</td>
+                <td>@o.CustomerName</td>
+                <td>@o.CustomerEmail</td>
+                <td>@o.CourseName</td>
+                <td>@o.Amount</td>
+                <td>@o.OrderDateUtc.ToString("u")</td>
+                <td>@(string.IsNullOrWhiteSpace(o.Notes) ? "-" : o.Notes)</td>
+            </tr>
+        }
+        </tbody>
+    </table>
 }
 
 <div class="text-center">
-    <h1 class="display-4">Welcome 2</h1>
+    <h1 class="display-4">Welcome 23</h1>
     <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>

@@ -8,5 +8,6 @@ namespace WebApplication
         public required string CourseName { get; set; }
         public decimal Amount { get; set; }
         public DateTime OrderDateUtc { get; set; }
+        public string? Notes { get; set; }
     }
 }

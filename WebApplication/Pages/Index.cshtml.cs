@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Data.SqlClient;
+
 
 namespace WebApplication.Pages;
 
@@ -9,5 +11,42 @@ public class IndexModel : PageModel
     public IndexModel(IConfiguration config)
     {
         _config = config;
+    }
+
+    public List<CourseOrder> Orders { get; private set; } = new();
+
+    public async Task OnGetAsync()
+    {
+        // string? connString = "Server=tcp:yo-sql-server.database.windows.net,1433;Initial Catalog=sql-yo;Persist Security Info=False;User ID=sqladmin;Password=StrongP@ssw0rd123!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        string? connString = _config.GetConnectionString("AzureSqlDb");
+        Console.WriteLine($"Connection String: {connString}");
+        
+
+        // Keep this super simple for demo purposes
+        using var conn = new SqlConnection(connString);
+        await conn.OpenAsync();
+
+        string sql = @"
+            SELECT TOP (50)
+                OrderId, CustomerName, CustomerEmail, CourseName, Amount, OrderDateUtc, Notes
+            FROM dbo.CourseOrders
+            ORDER BY OrderId DESC;";
+
+        using var cmd = new SqlCommand(sql, conn);
+        using var reader = await cmd.ExecuteReaderAsync();
+
+        while (await reader.ReadAsync())
+        {
+            Orders.Add(new CourseOrder
+            {
+                OrderId = reader.GetInt32(0),
+                CustomerName = reader.GetString(1),
+                CustomerEmail = reader.GetString(2),
+                CourseName = reader.GetString(3),
+                Amount = reader.GetDecimal(4),
+                OrderDateUtc = reader.GetDateTime(5),
+                Notes = reader.IsDBNull(6) ? null : reader.GetString(6)
+            });
+        }
     }
 }
